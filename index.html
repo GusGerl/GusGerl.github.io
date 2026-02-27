@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Name</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --surface: #141414;
+      --border: #222;
+      --text: #f0f0f0;
+      --muted: #666;
+      --accent: #e8ff47;
+      --accent-dim: rgba(232,255,71,0.08);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2.5rem;
+    }
+
+    /* HEADER */
+    header {
+      padding: 6rem 0 4rem;
+      border-bottom: 1px solid var(--border);
+      animation: fadeIn 0.6s ease both;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .name-block h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(5rem, 14vw, 9rem);
+      line-height: 0.9;
+      letter-spacing: 0.02em;
+      color: var(--text);
+    }
+
+    .name-block h1 span {
+      color: var(--accent);
+      display: block;
+    }
+
+    .header-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.6rem;
+      padding-top: 0.75rem;
+    }
+
+    .badge {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--bg);
+      background: var(--accent);
+      padding: 0.3rem 0.8rem;
+    }
+
+    .affil {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: right;
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      gap: 0;
+      margin-top: 3rem;
+      border: 1px solid var(--border);
+      width: fit-content;
+    }
+
+    nav a {
+      font-size: 0.66rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0.65rem 1.3rem;
+      border-right: 1px solid var(--border);
+      transition: color 0.2s, background 0.2s;
+    }
+
+    nav a:last-child { border-right: none; }
+    nav a:hover { color: var(--accent); background: var(--accent-dim); }
+
+    /* SECTIONS */
+    section {
+      padding: 4rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    section:nth-of-type(1) { animation: fadeIn 0.6s 0.1s ease both; }
+    section:nth-of-type(2) { animation: fadeIn 0.6s 0.2s ease both; }
+    section:nth-of-type(3) { animation: fadeIn 0.6s 0.3s ease both; }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .section-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.9rem;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+    }
+
+    h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem;
+      letter-spacing: 0.06em;
+      line-height: 1;
+    }
+
+    p { color: #999; font-size: 0.95rem; line-height: 1.7; }
+
+    /* ABOUT */
+    .about-text {
+      max-width: 580px;
+      font-size: 1.05rem;
+      color: #bbb;
+      line-height: 1.85;
+    }
+
+    /* LINK CARDS */
+    .link-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .link-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      padding: 1.5rem;
+      background: var(--surface);
+      text-decoration: none;
+      color: var(--text);
+      transition: background 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .link-card::after {
+      content: '↗';
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 1rem;
+      color: var(--muted);
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    .link-card:hover { background: var(--accent-dim); }
+    .link-card:hover::after { color: var(--accent); transform: translate(2px, -2px); }
+
+    .lc-label {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .lc-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.05em;
+      line-height: 1;
+    }
+
+    .lc-desc {
+      font-size: 0.76rem;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* PUBLICATIONS */
+    .pub {
+      display: grid;
+      grid-template-columns: 70px 1fr;
+      gap: 1.75rem;
+      padding: 1.75rem 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .pub:first-child { border-top: none; }
+
+    .pub-year {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      color: var(--muted);
+      padding-top: 0.15rem;
+      line-height: 1;
+    }
+
+    .pub-venue {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+
+    .pub-title {
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.35;
+      margin-bottom: 0.35rem;
+    }
+
+    .pub-authors {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 0.8rem;
+    }
+
+    .pub-authors strong { color: #ccc; font-weight: 500; }
+
+    .pub-links { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+
+    .pub-link {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      padding: 0.28rem 0.7rem;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .pub-link:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* FOOTER */
+    footer {
+      padding: 2rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    footer p {
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--border);
+      margin: 0;
+    }
+
+    footer p:last-child { color: var(--accent); opacity: 0.5; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 0 1.25rem; }
+      header { padding: 3.5rem 0 2.5rem; }
+      .header-top { flex-direction: column; }
+      .header-meta { align-items: flex-start; }
+      .affil { text-align: left; }
+      nav { width: 100%; }
+      nav a { flex: 1; text-align: center; padding: 0.65rem 0.5rem; }
+      .pub { grid-template-columns: 1fr; gap: 0.4rem; }
+      .pub-year { font-size: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-top">
+      <div class="name-block">
+        <!-- ✏️ Split your name across two lines: first on top, last in yellow -->
+        <h1>YOUR<span>NAME</span></h1>
+      </div>
+      <div class="header-meta">
+        <!-- ✏️ Your role/title -->
+        <span class="badge">PhD Candidate</span>
+        <!-- ✏️ Your department and institution -->
+        <p class="affil">Department of X<br>University of Y</p>
+      </div>
+    </div>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#cv">CV</a>
+      <a href="#publications">Publications</a>
+    </nav>
+  </header>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2>About</h2>
+    </div>
+    <!-- ✏️ Write your bio here -->
+    <p class="about-text">
+      I am a researcher working at the intersection of [field A] and [field B].
+      My work focuses on [main research interest], with the goal of [broader impact].
+      I am advised by [Advisor Name] at [Institution] and am part of [Lab / Group].
+    </p>
+  </section>
+
+  <!-- CV & CONTACT -->
+  <section id="cv">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2>CV &amp; Contact</h2>
+    </div>
+    <div class="link-grid">
+      <!-- ✏️ CV download — rename cv.pdf to match your file -->
+      <a class="link-card" href="cv.pdf" download>
+        <span class="lc-label">Download</span>
+        <span class="lc-title">Curriculum Vitae</span>
+        <p class="lc-desc">PDF — updated 2024</p>
+      </a>
+      <!-- ✏️ LinkedIn — paste your profile URL -->
+      <a class="link-card" href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener">
+        <span class="lc-label">Connect</span>
+        <span class="lc-title">LinkedIn</span>
+        <p class="lc-desc">Professional profile</p>
+      </a>
+      <!-- ✏️ Email — replace with your address -->
+      <a class="link-card" href="mailto:you@university.edu">
+        <span class="lc-label">Reach out</span>
+        <span class="lc-title">Email</span>
+        <p class="lc-desc">you@university.edu</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <section id="publications">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2>Publications</h2>
+    </div>
+
+    <!-- ✏️ PUB 1 — your hosted paper -->
+    <div class="pub">
+      <div class="pub-year">2024</div>
+      <div>
+        <p class="pub-venue">Conference / Journal Name</p>
+        <!-- ✏️ Replace with your paper title -->
+        <p class="pub-title">Your Paper Title Goes Here</p>
+        <!-- ✏️ Authors — bold your own name with <strong> -->
+        <p class="pub-authors">Author One, <strong>Your Name</strong>, Author Three</p>
+        <div class="pub-links">
+          <!-- ✏️ Replace paper.pdf with your uploaded filename -->
+          <a class="pub-link" href="paper.pdf" target="_blank">PDF</a>
+          <a class="pub-link" href="https://arxiv.org/abs/XXXXXX" target="_blank" rel="noopener">arXiv</a>
+          <a class="pub-link" href="https://doi.org/XXXXXX" target="_blank" rel="noopener">DOI</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ✏️ PUB 2 -->
+    <div class="pub">
+      <div class="pub-year">2023</div>
+      <div>
+        <p class="pub-venue">Conference / Journal Name</p>
+        <p class="pub-title">Second Paper Title</p>
+        <p class="pub-authors">Author One, <strong>Your Name</strong></p>
+        <div class="pub-links">
+          <a class="pub-link" href="https://arxiv.org/abs/XXXXXX" target="_blank" rel="noopener">arXiv</a>
+          <a class="pub-link" href="https://doi.org/XXXXXX" target="_blank" rel="noopener">DOI</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ✏️ PUB 3 -->
+    <div class="pub">
+      <div class="pub-year">2022</div>
+      <div>
+        <p class="pub-venue">Conference / Journal Name</p>
+        <p class="pub-title">Earlier Work or Preprint Title</p>
+        <p class="pub-authors"><strong>Your Name</strong>, Author Two</p>
+        <div class="pub-links">
+          <a class="pub-link" href="https://arxiv.org/abs/XXXXXX" target="_blank" rel="noopener">arXiv</a>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <!-- ✏️ Replace Your Name -->
+    <p>© 2024 Your Name</p>
+    <p>Hosted on GitHub Pages</p>
+  </footer>
+
+</div>
+</body>
+</html>
